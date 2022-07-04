@@ -68,11 +68,11 @@ class OctolampPlugin(octoprint.plugin.SettingsPlugin,
     def get_assets(self):
         # Define your plugin's asset files to automatically include in the
         # core UI here.
-        return {
-            "js": ["js/OctoLamp.js"],
-            "css": ["css/OctoLamp.css"],
-            "less": ["less/OctoLamp.less"]
-        }
+        return dict(
+            js= ["js/OctoLamp.js"],
+            css= ["css/OctoLamp.css"],
+            less=["less/OctoLamp.less"]
+        )
 
     ##~~ Softwareupdate hook
 
