@@ -8,11 +8,17 @@ $(function() {
     function OctolampViewModel(parameters) {
         var self = this;
 
-        // assign the injected parameters, e.g.:
-        // self.loginStateViewModel = parameters[0];
-        // self.settingsViewModel = parameters[1];
+        self.settings = parameters[0];
 
-        // TODO: Implement your plugin's view model here.
+        // Get username and password from settings
+        self.username = ko.observable();
+        self.password = ko.observable();
+
+        self.test_connection = function(){
+            
+        }
+
+
     }
 
     /* view model class, parameters for constructor, container to bind to

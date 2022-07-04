@@ -10,11 +10,13 @@ from __future__ import absolute_import
 # Take a look at the documentation on what other plugin mixins are available.
 
 import octoprint.plugin
+import flask
 
 class OctolampPlugin(octoprint.plugin.SettingsPlugin,
     octoprint.plugin.AssetPlugin,
     octoprint.plugin.TemplatePlugin,
     octoprint.plugin.StartupPlugin,
+    octoprint.plugin.SimpleApiPlugin,
 ):
     # Initialize the plugin logging
     def on_after_startup(self):
@@ -34,7 +36,21 @@ class OctolampPlugin(octoprint.plugin.SettingsPlugin,
         return [
             dict(type="settings", custom_bindings=False)
         ]
+    
+    # Define api commands
+    def get_api_commands(self):
+        return dict(
+            login = ['username', 'password']
+        )
         
+    # Define api responses
+    def on_api_command(self,command,data):
+        if command == "login":
+            username = data["username"]
+            password = data["password"]
+            self._logger.info("Login: %s" % username)
+            self._logger.info("Password: %s" % password)
+            
     # Debugging
     def on_settings_save(self, data):
         self._logger.info("Saving settings for Octolamp: %s" % data)
