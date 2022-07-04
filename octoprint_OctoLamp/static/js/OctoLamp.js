@@ -8,12 +8,10 @@ $(function() {
     function OctolampViewModel(parameters) {
         var self = this;
         self.settings = parameters[0];
-        self.username = ko.observable();
-        self.password = ko.observable();
 
         self.testconnection = function() {
-            var username = self.username();
-            var password = self.password();
+            var username = self.settings.username();
+            var password = self.settings.password();
             alert(username + " " + password);
         }
 
