@@ -14,6 +14,7 @@ $(function() {
         // the entered URL
         self.test = function() {
             console.log("test");
+            alert("test");
         };
 
         // This will get called before the HelloWorldViewModel gets bound to the DOM, but after its
