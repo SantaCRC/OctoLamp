@@ -13,9 +13,12 @@ import octoprint.plugin
 
 class OctolampPlugin(octoprint.plugin.SettingsPlugin,
     octoprint.plugin.AssetPlugin,
-    octoprint.plugin.TemplatePlugin
+    octoprint.plugin.TemplatePlugin,
+    octoprint.plugin.StartupPlugin,
 ):
-
+    # Initialize the plugin logging
+    def on_after_startup(self):
+        self._logger.info("Octolamp Plugin Started")
     ##~~ SettingsPlugin mixin
 
     def get_settings_defaults(self):
