@@ -60,6 +60,8 @@ class OctolampPlugin(octoprint.plugin.SettingsPlugin,
     # Debugging
     def on_settings_save(self, data):
         self._logger.info("Saving settings for Octolamp: %s" % data)
+        username = self._settings.get(["username"])
+        password = self._settings.get(["password"])
 
     ##~~ AssetPlugin mixin
 
