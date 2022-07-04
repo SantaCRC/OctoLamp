@@ -37,6 +37,6 @@ $(function() {
         ["settingsViewModel"],
 
         // Finally, this is the list of selectors for all elements we want this view model to be bound to.
-        ["#tab_plugin_helloworld"]
+        ["#settings_plugin_octolamp"]
     ]);
 });
