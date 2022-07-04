@@ -10,12 +10,6 @@ $(function() {
         self.loginState = parameters[0];
         self.settingsViewModel = parameters[1];
 
-        // this will hold the URL currently displayed by the iframe
-        self.currentUrl = ko.observable();
-
-        // this will hold the URL entered in the text field
-        self.newUrl = ko.observable();
-
         // this will be called when the user clicks the "Go" button and set the iframe's URL to
         // the entered URL
         self.test = function() {
@@ -28,8 +22,8 @@ $(function() {
         // the SettingsViewModel been properly populated.
         self.onBeforeBinding = function() {
             self.settings = self.settingsViewModel.settings;
-        }
-    }
+        };
+    };
 
     // This is how our plugin registers itself with the application, by adding some configuration
     // information to the global variable OCTOPRINT_VIEWMODELS
