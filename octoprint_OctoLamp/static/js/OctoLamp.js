@@ -14,29 +14,7 @@ $(function() {
         self.login = function() {
             var username = self.username();
             var password = self.password();
-
-            $.ajax({
-                url: API_BASEURL + "octolamp/login",
-                type: "POST",
-                dataType: "json",
-                data: JSON.stringify({
-                    username: username,
-                    password: password
-                }),
-                contentType: "application/json; charset=UTF-8",
-                success: function(data) {
-                    showMessage(gettext("Login successful"), "success");
-                },
-                error: function(xhr) {
-                    if (xhr.status == 401) {
-                        showMessage(gettext("Invalid username or password."), "error");
-                    } else {
-                        showMessage(gettext("Could not contact OctoLamp."), "error");
-                    }
-                }
-
-
-            });   
+            alert(username + " " + password);
 
             
         }
