@@ -52,6 +52,11 @@ class OctolampPlugin(octoprint.plugin.SettingsPlugin,
             self._logger.info("Password: %s" % password)
             #return flask.jsonify(user=username,passwd=password)
             
+    # Get api response
+    def on_api_get(self, request):
+        return flask.jsonify(foo="bar")
+    
+    
     # Debugging
     def on_settings_save(self, data):
         self._logger.info("Saving settings for Octolamp: %s" % data)
