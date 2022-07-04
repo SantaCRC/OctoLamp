@@ -15,7 +15,14 @@ $(function() {
         self.password = ko.observable();
 
         self.test_connection = function(){
-            
+            $.ajax({
+                url: '/api/plugin/octolamp',
+                type: 'post',
+                data: {command:'login',username: self.username,password: self.password},
+                success: function(response){
+             
+                }
+             });
         }
 
 
