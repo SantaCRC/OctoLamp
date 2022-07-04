@@ -29,7 +29,8 @@ class OctolampPlugin(octoprint.plugin.SettingsPlugin,
     def get_settings_defaults(self):
         return dict(
             username=None,
-            password=None,)
+            password=None,
+            url='https://google.com')
         
     # Setting templates for the plugin
     def get_template_configs(self):
