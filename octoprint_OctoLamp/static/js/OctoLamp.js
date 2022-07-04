@@ -7,8 +7,8 @@
 $(function() {
     function OctolampViewModel(parameters) {
         var self = this;
-
-        self.settings = parameters[0];
+        self.loginState = parameters[0];
+        self.settingsViewModel = parameters[1];
 
         // this will hold the URL currently displayed by the iframe
         self.currentUrl = ko.observable();
