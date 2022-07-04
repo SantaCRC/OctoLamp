@@ -7,26 +7,12 @@
 $(function() {
     function OctolampViewModel(parameters) {
         var self = this;
-        self.settings = parameters[0];
-        self.username = ko.observable();
-        self.password = ko.observable();
-
-        self.testconnection = function() {
-            var username = self.username();
-            var password = self.password();
-            alert(username + " " + password);
-
-            
-        }
 
         // assign the injected parameters, e.g.:
         // self.loginStateViewModel = parameters[0];
         // self.settingsViewModel = parameters[1];
 
         // TODO: Implement your plugin's view model here.
-        // self.onBeforeBinding = function() {
-        //     self.settings = self.settingsViewModel.settings;
-        // };
     }
 
     /* view model class, parameters for constructor, container to bind to
@@ -36,8 +22,8 @@ $(function() {
     OCTOPRINT_VIEWMODELS.push({
         construct: OctolampViewModel,
         // ViewModels your plugin depends on, e.g. loginStateViewModel, settingsViewModel, ...
-        dependencies: ["settingsViewModel"],
+        dependencies: [ /* "loginStateViewModel", "settingsViewModel" */ ],
         // Elements to bind to, e.g. #settings_plugin_OctoLamp, #tab_plugin_OctoLamp, ...
-        elements: ["settings_plugin_OctoLamp"]
+        elements: [ /* ... */ ]
     });
 });
