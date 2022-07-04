@@ -45,13 +45,13 @@ class OctolampPlugin(octoprint.plugin.SettingsPlugin,
         
     # Define api responses
     def on_api_command(self,command,data):
-        import flask
+        #import flask
         if command == "login":
             username = data["username"]
             password = data["password"]
             self._logger.info("Login: %s" % username)
             self._logger.info("Password: %s" % password)
-            return flask.jsonify(user=username,passwd=password)
+            #return flask.jsonify(user=username,passwd=password)
             
     # Debugging
     def on_settings_save(self, data):
