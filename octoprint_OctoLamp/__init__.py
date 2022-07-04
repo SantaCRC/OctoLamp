@@ -33,6 +33,10 @@ class OctolampPlugin(octoprint.plugin.SettingsPlugin,
         return [
             dict(type="settings", custom_bindings=False)
         ]
+        
+    # Debugging
+    def on_settings_save(self, data):
+        self._logger.info("Saving settings for Octolamp: %s" % data)
 
     ##~~ AssetPlugin mixin
 
