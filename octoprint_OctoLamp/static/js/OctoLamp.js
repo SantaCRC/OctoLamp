@@ -38,6 +38,6 @@ $(function() {
         // ViewModels your plugin depends on, e.g. loginStateViewModel, settingsViewModel, ...
         dependencies: ["settingsViewModel"],
         // Elements to bind to, e.g. #settings_plugin_OctoLamp, #tab_plugin_OctoLamp, ...
-        elements: ["settings_plugin_OctoLamp"]
+        elements: ["#settings_plugin_OctoLamp"]
     });
 });
