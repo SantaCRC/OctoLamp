@@ -19,7 +19,7 @@ $(function() {
         // this will be called when the user clicks the "Go" button and set the iframe's URL to
         // the entered URL
         self.test = function() {
-            self.currentUrl(self.newUrl());
+            log.info("OctolampViewModel.test()");
         };
 
         // This will get called before the HelloWorldViewModel gets bound to the DOM, but after its
@@ -27,8 +27,7 @@ $(function() {
         // gets called _after_ the settings have been retrieved from the OctoPrint backend and thus
         // the SettingsViewModel been properly populated.
         self.onBeforeBinding = function() {
-            self.newUrl(self.settings.settings.plugins.helloworld.url());
-            self.test();
+            self.settings = self.settingsViewModel.settings;
         }
     }
 
