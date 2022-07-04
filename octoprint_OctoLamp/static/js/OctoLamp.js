@@ -19,6 +19,11 @@ $(function() {
             
         }
 
+        self.onBeforeBinding = function() {
+            self.username(self.settings.username);
+            self.password(self.settings.password);
+        };
+
         // assign the injected parameters, e.g.:
         // self.loginStateViewModel = parameters[0];
         // self.settingsViewModel = parameters[1];
