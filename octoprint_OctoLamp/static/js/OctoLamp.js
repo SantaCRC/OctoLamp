@@ -38,6 +38,6 @@ $(function() {
         ["settingsViewModel"],
 
         // Finally, this is the list of selectors for all elements we want this view model to be bound to.
-        ["#settings_plugin_OctoLamp"]
+        [document.getElementById("settings_plugin_OctoLamp")]
     ]);
 });
