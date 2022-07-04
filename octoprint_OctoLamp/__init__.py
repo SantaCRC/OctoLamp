@@ -34,7 +34,7 @@ class OctolampPlugin(octoprint.plugin.SettingsPlugin,
     # Setting templates for the plugin
     def get_template_configs(self):
         return [
-            dict(type="settings", custom_bindings=True)
+            dict(type="settings", custom_bindings=False)
         ]
     
     # Define api commands
