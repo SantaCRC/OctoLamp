@@ -1,4 +1,4 @@
-<form class="form-horizontal" id="OctoLampSettings">
+<form class="form-horizontal" id="OctoLampSettings" onsubmit="return false;">
     <div class="control-group">
         <label class="control-label">{{ _('Username') }}</label>
         <div class="controls">
@@ -13,7 +13,7 @@
     </div>
      <div class="control-group">
                 <div class="controls">
-                    <button type="button" class="btn" data-bind="click: function() { test() }">Test login</button>
+                    <button type="button" class="btn" data-bind="click: test">Test login</button>
                 </div>
     </div>
 </form>
