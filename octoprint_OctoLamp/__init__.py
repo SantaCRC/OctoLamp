@@ -45,7 +45,6 @@ class OctolampPlugin(octoprint.plugin.SettingsPlugin,
         
     # Define api responses
     def on_api_command(self,command,data):
-        #import flask
         if command == "login":
             username = data["username"]
             password = data["password"]
