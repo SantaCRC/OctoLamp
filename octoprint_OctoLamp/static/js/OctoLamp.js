@@ -8,24 +8,11 @@ $(function() {
     function OctolampViewModel(parameters) {
         var self = this;
 
-        self.settings = parameters[0];
+        // assign the injected parameters, e.g.:
+        // self.loginStateViewModel = parameters[0];
+        // self.settingsViewModel = parameters[1];
 
-        // Get username and password from settings
-        self.username = ko.observable();
-        self.password = ko.observable();
-
-        self.test_connection = function(){
-            $.ajax({
-                url: '/api/plugin/octolamp',
-                type: 'post',
-                data: {command:'login',username: self.username,password: self.password},
-                success: function(response){
-             
-                }
-             });
-        }
-
-
+        // TODO: Implement your plugin's view model here.
     }
 
     /* view model class, parameters for constructor, container to bind to
