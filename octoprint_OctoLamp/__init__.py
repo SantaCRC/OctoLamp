@@ -20,6 +20,7 @@ class OctolampPlugin(octoprint.plugin.SettingsPlugin,
     def on_after_startup(self):
         self._logger.info("Octolamp Plugin Started")
         username = self._settings.get(["username"])
+        password = self._settings.get(["password"])
     ##~~ SettingsPlugin mixin
 
     # Defaults values
