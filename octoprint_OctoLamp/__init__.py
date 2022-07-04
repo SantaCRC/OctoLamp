@@ -22,9 +22,13 @@ class OctolampPlugin(octoprint.plugin.SettingsPlugin,
     ##~~ SettingsPlugin mixin
 
     def get_settings_defaults(self):
-        return {
-            # put your plugin's default settings here
-        }
+        return dict(
+            username=None,
+            password=None,)
+    def get_template_configs(self):
+        return [
+            dict(type="settings", custom_bindings=True)
+        ]
 
     ##~~ AssetPlugin mixin
 
