@@ -28,7 +28,7 @@ $(function() {
         // the SettingsViewModel been properly populated.
         self.onBeforeBinding = function() {
             self.newUrl(self.settings.settings.plugins.helloworld.url());
-            self.goToUrl();
+            self.test();
         }
     }
 
