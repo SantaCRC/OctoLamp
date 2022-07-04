@@ -17,6 +17,7 @@ class OctolampPlugin(octoprint.plugin.SettingsPlugin,
     octoprint.plugin.TemplatePlugin,
     octoprint.plugin.StartupPlugin,
     octoprint.plugin.SimpleApiPlugin,
+    octoprint.plugin.BlueprintPlugin
 ):
     # Initialize the plugin logging
     def on_after_startup(self):
@@ -94,6 +95,12 @@ class OctolampPlugin(octoprint.plugin.SettingsPlugin,
                 "pip": "https://github.com/SantaCRC/OctoPrint-Octolamp/archive/{target_version}.zip",
             }
         }
+
+    # Custom API commands
+    @octoprint.plugin.BlueprintPlugin.route("/api/octolamp/echo", methods=["GET"])
+    def echo(self):
+        return flask.jsonify(foo="bar")
+        
 
 
 # If you want your plugin to be registered within OctoPrint under a different name than what you defined in setup.py
