@@ -11,7 +11,7 @@ $(function() {
         self.username = ko.observable();
         self.password = ko.observable();
 
-        self.login = function() {
+        self.testconnection = function() {
             var username = self.username();
             var password = self.password();
             alert(username + " " + password);
