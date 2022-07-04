@@ -97,7 +97,7 @@ class OctolampPlugin(octoprint.plugin.SettingsPlugin,
         }
 
     # Custom API commands
-    @octoprint.plugin.BlueprintPlugin.route("/api/octolamp/echo", methods=["GET"])
+    @octoprint.plugin.BlueprintPlugin.route("/echo", methods=["GET"])
     def echo(self):
         return flask.jsonify(foo="bar")
         
