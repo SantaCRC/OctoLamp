@@ -13,7 +13,7 @@ $(function() {
         // this will be called when the user clicks the "Go" button and set the iframe's URL to
         // the entered URL
         self.test = function() {
-            log.info("OctolampViewModel.test()");
+            console.log("test");
         };
 
         // This will get called before the HelloWorldViewModel gets bound to the DOM, but after its
