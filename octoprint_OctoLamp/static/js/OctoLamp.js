@@ -9,7 +9,7 @@ $(function() {
         var self = this;
         self.settings = parameters[0];
 
-        self.testconnection = function() {
+        self.test = function() {
             var username = self.settings.username();
             var password = self.settings.password();
             alert(username + " " + password);
