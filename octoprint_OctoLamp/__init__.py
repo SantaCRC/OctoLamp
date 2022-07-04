@@ -17,7 +17,6 @@ class OctolampPlugin(octoprint.plugin.SettingsPlugin,
     octoprint.plugin.TemplatePlugin,
     octoprint.plugin.StartupPlugin,
     octoprint.plugin.SimpleApiPlugin,
-    octoprint.plugin.BlueprintPlugin
 ):
     # Initialize the plugin logging
     def on_after_startup(self):
