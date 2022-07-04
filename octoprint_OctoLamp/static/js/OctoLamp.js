@@ -13,12 +13,12 @@ $(function() {
             var username = self.settings.username();
             var password = self.settings.password();
             alert(username + " " + password);
-        }
+        };
 
         self.onBeforeBinding = function() {
             self.username(self.settings.username);
             self.password(self.settings.password);
-        }
+        };
 
         // assign the injected parameters, e.g.:
         // self.loginStateViewModel = parameters[0];
