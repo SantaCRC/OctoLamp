@@ -46,9 +46,9 @@ $(function() {
         // self.settingsViewModel = parameters[1];
 
         // TODO: Implement your plugin's view model here.
-        self.onBeforeBinding = function() {
-            self.settings = self.settingsViewModel.settings;
-        };
+        // self.onBeforeBinding = function() {
+        //     self.settings = self.settingsViewModel.settings;
+        // };
     }
 
     /* view model class, parameters for constructor, container to bind to
