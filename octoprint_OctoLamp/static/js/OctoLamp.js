@@ -14,7 +14,20 @@ $(function() {
         // the entered URL
         self.test = function() {
             console.log("test");
-            alert("test");
+
+            $.ajax({
+                url: BaseUrl + "/plugin/OctoLamp/login",
+                type: "POST",
+                data: {
+                    command: "login",
+                    username: self._g_settings.settings.plugins.OctoLamp.username(),
+                    password: self._g_settings.settings.plugins.OctoLamp.password()
+                },
+                success: function(data) {
+                    console.log(data);
+                }
+            });
+
         };
 
         // This will get called before the HelloWorldViewModel gets bound to the DOM, but after its
