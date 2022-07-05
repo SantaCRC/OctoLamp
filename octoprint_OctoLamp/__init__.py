@@ -11,6 +11,8 @@ from __future__ import absolute_import
 
 import octoprint.plugin
 import flask
+from meross_iot.http_api import MerossHttpClient
+from meross_iot.manager import MerossManager
 
 class OctolampPlugin(octoprint.plugin.SettingsPlugin,
     octoprint.plugin.AssetPlugin,
@@ -44,14 +46,27 @@ class OctolampPlugin(octoprint.plugin.SettingsPlugin,
             login = ['username', 'password']
         )
         
+    async def test_connection(self,email,password):
+        http_api_client = await MerossHttpClient.async_from_user_password(email=email, password=password)
+
+        # Setup and start the device manager
+        manager = MerossManager(http_client=http_api_client)
+        await manager.async_init()
+
+        # Retrieve all the MSS310 devices that are registered on this account
+        await manager.async_device_discovery()
+        plugs = manager.find_devices(device_type="mss310")
+        return plugs  
+        
     # Define api responses
     def on_api_command(self,command,data):
         if command == "login":
             username = data["username"]
             password = data["password"]
-            self._logger.info("Login: %s" % username)
-            self._logger.info("Password: %s" % password)
-            return flask.jsonify(user=username,passwd=password)
+            EMAIL = username
+            PASSWORD = password
+            plug=self.test_connection(EMAIL,PASSWORD)
+            return flask.jsonify(plugs=plug,passwd=password)
             
     # Get api response
     def on_api_get(self, request):
