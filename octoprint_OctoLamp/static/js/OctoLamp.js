@@ -16,7 +16,7 @@ $(function() {
             console.log("test");
 
             $.ajax({
-                url: "/plugin/OctoLamp/login",
+                url: "api/plugin/OctoLamp",
                 type: "POST",
                 data: {
                     command: "login",
