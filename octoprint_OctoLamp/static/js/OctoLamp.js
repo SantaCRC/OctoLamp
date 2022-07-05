@@ -1,43 +1,179 @@
-/*
- * View model for OctoPrint-Octolamp
- *
- * Author: Fabian Alvarez
- * License: AGPLv3
- */
 $(function() {
-    function OctolampViewModel(parameters) {
+    function OctoprintPsuControlMerossViewModel(parameters) {
         var self = this;
-        self.loginState = parameters[0];
-        self.settingsViewModel = parameters[1];
 
-        // this will be called when the user clicks the "Go" button and set the iframe's URL to
-        // the entered URL
-        self.test = function() {
-            console.log("test");
-            alert("test");
+        self._g_settings = parameters[0];
+        self.settings = null;
+
+        self._ui_message = {
+            level: "info",
+            text: ""
+        }
+        self.devices =  ko.observableArray([]);
+        self.selected_device = ko.observable();
+
+        self.devices.extend({ rateLimit: 200 });
+
+        self.message = new function() {
+            this.state = {
+                level: ko.observable(),
+                text: ko.observable(),
+            }
+
+            this._idx_gen = 0;
+
+            this.set = function(level, text) {
+                this._idx_gen ++;
+                this.state.level(level);
+                this.state.text(text);
+
+                var thisCallId = this._idx_gen;
+                var _msgObj = this;
+                return function(){ _msgObj.hideIf(thisCallId); }
+            }
+
+            this.info = function (text) {
+                return this.set('info', text);
+            }
+
+            this.error = function (text) {
+                return this.set('error', text);
+            }
+
+            this.success = function (text) {
+                return this.set('success', text);
+            }
+
+            this.hide = function() {
+                return this.set(null, null);
+            }
+
+            this.hideIf = function(idx) {
+                // Hide the box only if the message ID didn't change since
+                if(this._idx_gen == idx) {
+                    this.hide();
+                }
+            }
+
+            this.ajaxWait = function() {
+                // Just a shorthand for 'running in the backend'
+                return this.info('... Talking to the backend ...');
+            }
         };
 
-        // This will get called before the HelloWorldViewModel gets bound to the DOM, but after its
-        // dependencies have already been initialized. It is especially guaranteed that this method
-        // gets called _after_ the settings have been retrieved from the OctoPrint backend and thus
-        // the SettingsViewModel been properly populated.
-        self.onBeforeBinding = function() {
-            console.log("onBeforeBinding");
-        };
-    };
+        function ensure_device_is_listed(device_id) {
+            // Ensure that an element with dev_id == device_id always exists
+            //   in self.devices
+            var el_found = false;
+            for(el of self.devices()) {
+                el_found = el_found || (el.dev_id == device_id);
+            }
 
-    // This is how our plugin registers itself with the application, by adding some configuration
-    // information to the global variable OCTOPRINT_VIEWMODELS
-    OCTOPRINT_VIEWMODELS.push([
-        // This is the constructor to call for instantiating the plugin
-        OctolampViewModel,
+            if(!el_found) {
+                self.devices.push({dev_id: device_id, name: 'Unknown (' + device_id +')' });
+            }
+        }
 
-        // This is a list of dependencies to inject into the plugin, the order which you request
-        // here is the order in which the dependencies will be injected into your view model upon
-        // instantiation via the parameters argument
-        ["settingsViewModel"],
+        self.onBeforeBinding = function () {
+            self.settings = self._g_settings.settings.plugins.psucontrol_meross;
+            self.message.hide();
 
-        // Finally, this is the list of selectors for all elements we want this view model to be bound to.
-        [document.getElementById("settings_plugin_OctoLamp")]
-    ]);
+            var orig_selection = self.settings.target_device_id();
+            // Add a dummy element to the dropdown if there had been a device selected
+            if(!!orig_selection)
+            {
+                ensure_device_is_listed(orig_selection);
+            }
+        }
+
+        self.onSettingsShown = function() {
+            self.fetch_plugin_status();
+        }
+
+        self.fetch_plugin_status = function() {
+            // Fetch BE state
+            var ajaxDone = this.message.ajaxWait();
+            OctoPrint.simpleApiGet(
+                "psucontrol_meross",
+            ).done(function(response){
+                var orig_selection = self.settings.target_device_id(); // Store the current selection (while the list is being re-populated)
+                console.log("ORIG", orig_selection);
+                self.devices.removeAll()
+                for (device of response.device_list) {
+                    self.devices.push(device);
+                }
+                ensure_device_is_listed(orig_selection)
+                self.settings.target_device_id(orig_selection);
+            }).always(ajaxDone);
+        }
+
+        self.toggle_device = function() {
+            var username = self.settings.user_email();
+            var password = self.settings.user_password();
+            var device_id = self.settings.target_device_id();
+
+            if (!username || !password || !device_id) {
+                self.message.error("Missing login/password or no device selected.");
+                return;
+            }
+            
+            var ajaxDone = this.message.ajaxWait();
+            OctoPrint.simpleApiCommand(
+                "psucontrol_meross",
+                "toggle_device",
+                {
+                    "user_email": username,
+                    "user_password": password,
+                    "dev_id": device_id,
+                }
+            ).done(function(response){
+                // psucontrol_meross_show_error(response.error);
+                if(response.error) {
+                    self.message.error(response.rv);
+                }
+                else
+                {
+                    self.message.success(response.rv);
+                    self.fetch_plugin_status();
+                }
+            }).always(ajaxDone);
+        }
+
+        self.test_meross_cloud_login = function() {
+            var username = self.settings.user_email();
+            var password = self.settings.user_password();
+
+            if (!username || !password) {
+                self.message.error("Please provide both Meross cloud username and password.");
+                return;
+            }
+            
+            var ajaxDone = this.message.ajaxWait();
+            OctoPrint.simpleApiCommand(
+                "psucontrol_meross",
+                "try_login",
+                {
+                    "user_email": username,
+                    "user_password": password,
+                }
+            ).done(function(response){
+                // psucontrol_meross_show_error(response.error);
+                if(response.error) {
+                    self.message.error(response.rv);
+                }
+                else
+                {
+                    self.message.success(response.rv);
+                    self.fetch_plugin_status();
+                }
+            }).always(ajaxDone);
+        }
+    }
+
+    OCTOPRINT_VIEWMODELS.push({
+        construct: OctoprintPsuControlMerossViewModel,
+        additionalNames: [],
+        dependencies: ["settingsViewModel"],
+        elements: ["#psucontrol_meross_settings_form"]
+    });
 });
