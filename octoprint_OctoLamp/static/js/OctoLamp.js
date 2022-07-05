@@ -7,7 +7,7 @@
 $(function() {
     function OctolampViewModel(parameters) {
         var self = this;
-        self.loginState = parameters[0];
+        self.settings = parameters[0];
         self.settingsViewModel = parameters[1];
 
         // this will be called when the user clicks the "Go" button and set the iframe's URL to
