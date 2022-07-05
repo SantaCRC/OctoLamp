@@ -7,7 +7,7 @@
 $(function() {
     function OctolampViewModel(parameters) {
         var self = this;
-        self.settings = parameters[0];
+        self._g_settings = parameters[0];
         self.settingsViewModel = parameters[1];
 
         // this will be called when the user clicks the "Go" button and set the iframe's URL to
@@ -22,7 +22,7 @@ $(function() {
         // gets called _after_ the settings have been retrieved from the OctoPrint backend and thus
         // the SettingsViewModel been properly populated.
         self.onBeforeBinding = function() {
-            self.settings = self.settings.settings.plugins.OctoLamp;
+            self.settings = self._g_settings.settings.plugins.OctoLamp;
             self.test();
         };
     };
