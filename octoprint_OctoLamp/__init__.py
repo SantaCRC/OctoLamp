@@ -69,7 +69,7 @@ class OctolampPlugin(octoprint.plugin.SettingsPlugin,
         # Define your plugin's asset files to automatically include in the
         # core UI here.
         return dict(
-            js= ["js/octolamp.js","js/helloworld.js"],
+            js= ["js/OctoLamp.js","js/helloworld.js"],
             css= ["css/OctoLamp.css"],
             less=["less/OctoLamp.less"]
         )
