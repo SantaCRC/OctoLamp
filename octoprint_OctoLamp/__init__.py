@@ -64,7 +64,8 @@ class OctolampPlugin(octoprint.plugin.SettingsPlugin,
             username = data["username"]
             password = data["password"]
             plug=self.test_connection(username,password)
-            return flask.jsonify(plugs=plug,passwd=password)
+            print(plug)
+            return flask.jsonify(plugs=username,passwd=password)
             
     # Get api response
     def on_api_get(self, request):
