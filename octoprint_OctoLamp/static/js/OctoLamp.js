@@ -20,8 +20,8 @@ $(function() {
                 type: "POST",
                 data: JSON.stringify({
                     "command": "login",
-                    "username": "admin",
-                    "password": "admin",
+                    "username": self._g_settings.settings.plugins.OctoLamp.username(),
+                    "password": self._g_settings.settings.plugins.OctoLamp.password()
                 }),
                 contentType: "application/json; charset=UTF-8",
                 dataType: "json",
