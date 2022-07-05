@@ -18,11 +18,13 @@ $(function() {
             $.ajax({
                 url: "api/plugin/OctoLamp",
                 type: "POST",
-                data: {
-                    command: "login",
-                    username: self._g_settings.settings.plugins.OctoLamp.username(),
-                    password: self._g_settings.settings.plugins.OctoLamp.password()
-                },
+                data: JSON.stringify({
+                    "command": "login",
+                    "username": "admin",
+                    "password": "admin",
+                }),
+                contentType: "application/json; charset=UTF-8",
+                dataType: "json",
                 success: function(data) {
                     console.log(data);
                 }
