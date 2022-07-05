@@ -23,7 +23,6 @@ $(function() {
         // the SettingsViewModel been properly populated.
         self.onBeforeBinding = function() {
             self.test();
-            self.settings = self.settingsViewModel.settings;
         };
     };
 
